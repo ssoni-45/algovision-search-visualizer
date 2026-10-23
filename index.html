@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b16">
+    <title>AlgoVision — Search Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="#" class="brand"><span class="brand-icon">⌘</span> Algo<span>Vision</span></a>
+    <div class="nav-status"><span class="live-dot"></span> INTERACTIVE DSA STUDIO</div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="eyebrow">✦ DATA STRUCTURES & ALGORITHMS</div>
+        <h1>Searching <span>Studio.</span></h1>
+        <p>Watch algorithms think. Explore every comparison, one step at a time.</p>
+        <div class="hero-tags">
+            <span>01 / Linear Search</span>
+            <span>02 / Binary Search</span>
+            <span>Live Visualization</span>
+        </div>
+    </section>
+
+    <section class="panel setup-panel">
+        <div class="panel-title">
+            <div>
+                <div class="eyebrow">CONFIGURATION</div>
+                <h2>Build your search</h2>
+            </div>
+            <span class="step-label">STEP 01</span>
+        </div>
+
+        <div class="form-grid">
+            <div class="field">
+                <label for="algorithm">SEARCH ALGORITHM</label>
+                <select id="algorithm">
+                    <option value="linear">Linear Search</option>
+                    <option value="binary">Binary Search</option>
+                </select>
+            </div>
+
+            <div class="field array-field">
+                <label for="arrayInput">ARRAY VALUES · COMMA SEPARATED</label>
+                <input id="arrayInput" type="text"
+                    value="12, 5, 23, 8, 16, 42, 19"
+                    placeholder="12, 5, 23, 8, 16">
+            </div>
+
+            <div class="field target-field">
+                <label for="targetInput">TARGET</label>
+                <input id="targetInput" type="number" value="16">
+            </div>
+        </div>
+
+        <div class="setup-actions">
+            <button id="applyBtn" class="btn btn-primary">Apply Configuration ↗</button>
+            <button id="randomBtn" class="btn btn-outline">⤨ Random Array</button>
+            <button id="exampleBtn" class="btn btn-outline">Load Example</button>
+        </div>
+        <p id="notice" class="notice">Ready to configure your search.</p>
+    </section>
+
+    <section class="workspace">
+        <div class="main-column">
+
+            <section class="panel visual-panel">
+                <div class="panel-title">
+                    <div>
+                        <div class="eyebrow">LIVE CANVAS / 01</div>
+                        <h2>Array Visualization</h2>
+                    </div>
+                    <span id="status" class="status">READY</span>
+                </div>
+
+                <div class="legend">
+                    <span><i class="dot neutral"></i> Unchecked</span>
+                    <span><i class="dot current"></i> Comparing</span>
+                    <span><i class="dot excluded"></i> Excluded</span>
+                    <span><i class="dot found"></i> Found</span>
+                </div>
+
+                <div id="arrayContainer" class="array-container"></div>
+
+                <div class="progress-labels">
+                    <span id="progressText">0 / 0 steps</span>
+                    <strong id="progressPercent">0%</strong>
+                </div>
+                <div class="progress-track">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+
+                <div class="message-box">
+                    <span class="message-icon">✦</span>
+                    <p id="message">Press Start to see the algorithm in action.</p>
+                </div>
+
+                <div class="playback">
+                    <button id="startBtn" class="btn btn-primary">▶ Start</button>
+                    <button id="pauseBtn" class="btn btn-outline" disabled>Ⅱ Pause</button>
+                    <button id="stepBtn" class="btn btn-outline">Next Step →</button>
+                    <button id="resetBtn" class="btn btn-outline">↻ Reset</button>
+                </div>
+
+                <div class="speed-row">
+                    <label for="speedInput">ANIMATION SPEED</label>
+                    <input id="speedInput" type="range" min="100" max="1200"
+                        step="100" value="600">
+                    <span id="speedLabel">Normal</span>
+                </div>
+            </section>
+
+            <section class="panel history-panel">
+                <div class="panel-title">
+                    <div>
+                        <div class="eyebrow">LIVE TRACE / 02</div>
+                        <h2>Execution History</h2>
+                    </div>
+                    <span class="step-label">STEP LOG</span>
+                </div>
+                <div id="history" class="history">
+                    <p class="empty-history">Your comparisons will appear here.</p>
+                </div>
+            </section>
+        </div>
+
+        <aside class="side-column">
+            <section class="panel target-card">
+                <div class="eyebrow">TARGET ELEMENT</div>
+                <div id="targetBig" class="target-big">16</div>
+                <p class="muted">The value we're looking for</p>
+                <div class="divider"></div>
+                <div class="metric-row"><span>Array size</span><strong id="arraySize">7</strong></div>
+                <div class="metric-row"><span>Array order</span><strong id="arrayOrder">Unsorted</strong></div>
+            </section>
+
+            <section class="panel stats-card">
+                <div class="eyebrow">COMPARISONS MADE</div>
+                <div id="comparisons" class="stat-number">0</div>
+                <p class="muted">Values compared with target</p>
+                <div class="divider"></div>
+                <div class="metric-row"><span>Current index</span><strong id="currentIndex">—</strong></div>
+                <div class="metric-row"><span>Found index</span><strong id="foundIndex">—</strong></div>
+                <div class="metric-row"><span>Search result</span><strong id="result">Waiting</strong></div>
+            </section>
+
+            <section class="panel info-card">
+                <div class="eyebrow">ALGORITHM INSIGHT</div>
+                <h3 id="algorithmTitle">Linear Search</h3>
+                <p id="algorithmDescription">Checks each element from left to right until the target is found.</p>
+                <div class="divider"></div>
+                <div class="complexity-row"><span>Best case</span><strong id="bestCase">O(1)</strong></div>
+                <div class="complexity-row"><span>Average case</span><strong id="averageCase">O(n)</strong></div>
+                <div class="complexity-row"><span>Worst case</span><strong id="worstCase">O(n)</strong></div>
+                <div class="complexity-row"><span>Extra space</span><strong>O(1)</strong></div>
+                <div class="divider"></div>
+                <div class="eyebrow">PSEUDOCODE</div>
+                <pre id="pseudocode" class="pseudocode"></pre>
+            </section>
+        </aside>
+    </section>
+
+    <section class="bottom-grid">
+        <article class="panel concept-card">
+            <div class="eyebrow">HOW IT WORKS / 01</div>
+            <h3>Linear Search</h3>
+            <p>Starts at the first element and checks each value one by one. It works even when the array is unsorted.</p>
+            <div class="tag-row"><span>Unsorted data</span><span>Simple scan</span></div>
+        </article>
+        <article class="panel concept-card">
+            <div class="eyebrow">HOW IT WORKS / 02</div>
+            <h3>Binary Search</h3>
+            <p>Checks the middle value and eliminates half the search range each step. The array must be sorted.</p>
+            <div class="tag-row"><span>Sorted data</span><span>Divide & conquer</span></div>
+        </article>
+    </section>
+
+    <footer>Designed for learning DSA <span>✦</span> AlgoVision Search Studio</footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
